@@ -6,18 +6,15 @@ function Dashboard() {
   const [transactions, setTransactions] = useState([]);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
-  // LOAD
   useEffect(() => {
     const data = localStorage.getItem("fintrack");
     if (data) setTransactions(JSON.parse(data));
   }, []);
 
-  // SAVE
   useEffect(() => {
     localStorage.setItem("fintrack", JSON.stringify(transactions));
   }, [transactions]);
 
-  // ONLINE / OFFLINE
   useEffect(() => {
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
@@ -31,7 +28,6 @@ function Dashboard() {
     };
   }, []);
 
-  // ADD
   const addTransaction = (transaction) => {
     setTransactions([
       { ...transaction, synced: false },
@@ -39,7 +35,6 @@ function Dashboard() {
     ]);
   };
 
-  // DELETE
   const deleteTransaction = (id) => {
     setTransactions(transactions.filter((t) => t.id !== id));
   };
@@ -56,27 +51,25 @@ function Dashboard() {
 
   return (
     <div className="container">
-
-      {/* STATUS */}
       <div className={`status ${isOnline ? "online" : "offline"}`}>
         {isOnline ? "🟢 Online" : "🔴 Offline"}
       </div>
 
-      <h1>Financial Dashboard</h1>
+      <h1>Panel Finansowy</h1>
 
       <div className="cards">
         <div className="card income">
-          <h3>Income</h3>
+          <h3>Przychody</h3>
           <p>{income} PLN</p>
         </div>
 
         <div className="card expense">
-          <h3>Expenses</h3>
+          <h3>Wydatki</h3>
           <p>{expense} PLN</p>
         </div>
 
         <div className="card balance">
-          <h3>Balance</h3>
+          <h3>Saldo</h3>
           <p>{balance} PLN</p>
         </div>
       </div>

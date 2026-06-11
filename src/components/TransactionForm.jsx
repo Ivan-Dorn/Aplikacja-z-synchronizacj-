@@ -26,24 +26,24 @@ function TransactionForm({ addTransaction }) {
   return (
     <form className="form" onSubmit={handleSubmit}>
       <input
-        placeholder="Title"
+        placeholder="Tytuł"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
 
       <input
         type="number"
-        placeholder="Amount"
+        placeholder="Kwota"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
       />
 
       <select value={type} onChange={(e) => setType(e.target.value)}>
-        <option value="expense">Expense</option>
-        <option value="income">Income</option>
+        <option value="expense">Wydatek</option>
+        <option value="income">Przychód</option>
       </select>
 
-      <button>Add</button>
+      <button>Dodaj</button>
     </form>
   );
 }
