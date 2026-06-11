@@ -1,8 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TransactionForm from "../components/TransactionForm";
 
 function Dashboard() {
   const [transactions, setTransactions] = useState([]);
+
+  // LOAD z localStorage
+  useEffect(() => {
+    const data = localStorage.getItem("fintrack");
+
+    if (data) {
+      setTransactions(JSON.parse(data));
+    }
+  }, []);
+
+  // SAVE do localStorage
+  useEffect(() => {
+    localStorage.setItem("fintrack", JSON.stringify(transactions));
+  }, [transactions]);
 
   const addTransaction = (transaction) => {
     setTransactions([transaction, ...transactions]);
