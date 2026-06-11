@@ -1,25 +1,25 @@
 import { useEffect, useState } from "react";
 import TransactionForm from "../components/TransactionForm";
+import TransactionList from "../components/TransactionList";
 
 function Dashboard() {
   const [transactions, setTransactions] = useState([]);
 
-  // LOAD z localStorage
   useEffect(() => {
     const data = localStorage.getItem("fintrack");
-
-    if (data) {
-      setTransactions(JSON.parse(data));
-    }
+    if (data) setTransactions(JSON.parse(data));
   }, []);
 
-  // SAVE do localStorage
   useEffect(() => {
     localStorage.setItem("fintrack", JSON.stringify(transactions));
   }, [transactions]);
 
   const addTransaction = (transaction) => {
     setTransactions([transaction, ...transactions]);
+  };
+
+  const deleteTransaction = (id) => {
+    setTransactions(transactions.filter((t) => t.id !== id));
   };
 
   const income = transactions
@@ -54,6 +54,11 @@ function Dashboard() {
       </div>
 
       <TransactionForm addTransaction={addTransaction} />
+
+      <TransactionList
+        transactions={transactions}
+        deleteTransaction={deleteTransaction}
+      />
     </div>
   );
 }

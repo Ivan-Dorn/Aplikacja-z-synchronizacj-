@@ -100,3 +100,46 @@ body {
   cursor: pointer;
   font-weight: bold;
 }
+.list {
+  margin-top: 25px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #111a2e;
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 12px;
+  border: 1px solid #1f2a44;
+}
+
+.item h4 {
+  margin: 0;
+}
+
+.item p {
+  margin: 0;
+  opacity: 0.6;
+  font-size: 12px;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.item button {
+  background: red;
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.empty {
+  opacity: 0.6;
+}
