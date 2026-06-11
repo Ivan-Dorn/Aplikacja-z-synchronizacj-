@@ -143,3 +143,22 @@ body {
 .empty {
   opacity: 0.6;
 }
+.status {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.online {
+  background: #14532d;
+  color: #22c55e;
+}
+
+.offline {
+  background: #450a0a;
+  color: #ef4444;
+}

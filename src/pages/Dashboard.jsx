@@ -4,36 +4,64 @@ import TransactionList from "../components/TransactionList";
 
 function Dashboard() {
   const [transactions, setTransactions] = useState([]);
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
 
+  // LOAD
   useEffect(() => {
     const data = localStorage.getItem("fintrack");
     if (data) setTransactions(JSON.parse(data));
   }, []);
 
+  // SAVE
   useEffect(() => {
     localStorage.setItem("fintrack", JSON.stringify(transactions));
   }, [transactions]);
 
+  // ONLINE / OFFLINE
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
+
+  // ADD
   const addTransaction = (transaction) => {
-    setTransactions([transaction, ...transactions]);
+    setTransactions([
+      { ...transaction, synced: false },
+      ...transactions,
+    ]);
   };
 
+  // DELETE
   const deleteTransaction = (id) => {
     setTransactions(transactions.filter((t) => t.id !== id));
   };
 
   const income = transactions
     .filter((t) => t.type === "income")
-    .reduce((acc, t) => acc + t.amount, 0);
+    .reduce((a, b) => a + b.amount, 0);
 
   const expense = transactions
     .filter((t) => t.type === "expense")
-    .reduce((acc, t) => acc + t.amount, 0);
+    .reduce((a, b) => a + b.amount, 0);
 
   const balance = income - expense;
 
   return (
     <div className="container">
+
+      {/* STATUS */}
+      <div className={`status ${isOnline ? "online" : "offline"}`}>
+        {isOnline ? "🟢 Online" : "🔴 Offline"}
+      </div>
+
       <h1>Financial Dashboard</h1>
 
       <div className="cards">
